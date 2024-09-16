@@ -8,21 +8,21 @@ SCREEN_HEIGHT = 600
 # Bird settings
 BIRD_START_X = 50    
 BIRD_START_Y = 300   
-BIRD_SCALE = (50, 35)  # Rescale bird to (width, height)
+BIRD_SCALE = (25, 25)  # Rescale bird to (width, height)
 
 # Gravity settings
-GRAVITY = 0.20       
-FLAP_STRENGTH = -5 
+GRAVITY = 0.18       
+FLAP_STRENGTH = -4.5
 
 # Pipe settings
-PIPE_WIDTH = 80
-PIPE_HEIGHT = 500
-PIPE_GAP = 150       
-PIPE_VELOCITY = 4    
-PIPE_SCALE = (60, 500)  # Rescale pipes to fit screen
+PIPE_WIDTH = 35
+PIPE_HEIGHT = 400
+PIPE_GAP = 220 
+PIPE_VELOCITY = 2.7
+PIPE_SCALE = (PIPE_WIDTH, PIPE_HEIGHT)  # Rescale pipes to fit screen
 
 # Background settings
-BACKGROUND_VELOCITY = 2
+BACKGROUND_VELOCITY = 1.8
 BACKGROUND_SCALE = (400, 600)  # Rescale background to fit screen
 
 # Game settings
@@ -37,3 +37,6 @@ PIPE_IMAGE_PATH = 'assets/images/pipe.png'
 BACKGROUND_IMAGE_PATH = 'assets/images/background.png'
 FLAP_SOUND_PATH = 'assets/sounds/flap.wav'
 HIT_SOUND_PATH = 'assets/sounds/hit.wav'
+
+
+FPS_TRAINING = 10  # Control the speed during training (for time.sleep)

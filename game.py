@@ -3,16 +3,20 @@ from bird import Bird
 from pipe import Pipe
 from background import Background
 import config
-import random
 
 class Game:
     """Main class to handle game logic and loop"""
 
-    def __init__(self):
+    def __init__(self, render=True):
         """Initialize game and its components"""
-        pygame.init()
-        self.screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
-        pygame.display.set_caption('Flying Bird Game')
+        self.render_enabled = render
+        if self.render_enabled:
+            pygame.init()
+            self.screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+            pygame.display.set_caption('Flying Bird Game')
+        else:
+            self.screen = None
+
         self.clock = pygame.time.Clock()
 
         # Initialize game components
@@ -22,7 +26,7 @@ class Game:
         self.pipe_timer = 0  # Track pipe spawn interval
         self.speed_factor = 1.0  # Speed increases over time
         self.score = 0  # Initialize score
-        self.font = pygame.font.Font(None, 36)  # Font for score display
+        self.font = pygame.font.Font(None, 36) if self.render_enabled else None  # Font for score display only if rendering
 
     def increase_speed(self):
         """Increase game speed over time"""
@@ -49,9 +53,10 @@ class Game:
                 pipe.passed = True
 
     def display_score(self):
-        """Display the score on the screen"""
-        score_surface = self.font.render(f"Score: {self.score}", True, (255, 255, 255))
-        self.screen.blit(score_surface, (10, 10))
+        """Display the score on the screen if rendering is enabled"""
+        if self.screen is not None and self.font is not None:
+            score_surface = self.font.render(f"Score: {self.score}", True, (0, 0, 255))
+            self.screen.blit(score_surface, (10, 10))
 
     def run(self):
         """Main game loop"""
@@ -92,17 +97,17 @@ class Game:
                 print(f"Game Over! Final Score: {self.score}")
                 running = False
 
-            # Draw everything
-            self.screen.fill(config.COLOR_BLACK)  # Clear screen
-            self.background.draw(self.screen)
-            self.bird.draw(self.screen)
-            for pipe in self.pipes:
-                pipe.draw(self.screen)
+            # Draw everything if rendering is enabled
+            if self.render_enabled:
+                self.screen.fill(config.COLOR_BLACK)  # Clear screen
+                self.background.draw(self.screen)
+                self.bird.draw(self.screen)
+                for pipe in self.pipes:
+                    pipe.draw(self.screen)
+                self.display_score()
 
-            # Display the score
-            self.display_score()
+                pygame.display.update()
+                self.clock.tick(config.FPS)
 
-            pygame.display.update()
-            self.clock.tick(config.FPS)
-
-        pygame.quit()
+        if self.render_enabled:
+            pygame.quit()

@@ -33,5 +33,6 @@ class Bird:
             self.rect.bottom = config.SCREEN_HEIGHT
 
     def draw(self, screen):
-        """Render the bird on the screen"""
-        screen.blit(self.image, self.rect)
+        """Render the bird on the screen if rendering is enabled"""
+        if screen is not None:
+            screen.blit(self.image, self.rect)

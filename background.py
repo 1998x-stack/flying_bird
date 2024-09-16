@@ -23,6 +23,7 @@ class Background:
             self.rect2.left = config.SCREEN_WIDTH
 
     def draw(self, screen):
-        """Render both background images for scrolling effect"""
-        screen.blit(self.image, self.rect1)
-        screen.blit(self.image, self.rect2)
+        """Render both background images for scrolling effect, if rendering is enabled"""
+        if screen is not None:
+            screen.blit(self.image, self.rect1)
+            screen.blit(self.image, self.rect2)

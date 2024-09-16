@@ -19,9 +19,10 @@ class Pipe:
         self.rect_bottom.x -= config.PIPE_VELOCITY
 
     def draw(self, screen):
-        """Draw top and bottom pipes"""
-        screen.blit(self.image, self.rect_top)
-        screen.blit(self.image, self.rect_bottom)
+        """Draw top and bottom pipes if rendering is enabled"""
+        if screen is not None:
+            screen.blit(self.image, self.rect_top)
+            screen.blit(self.image, self.rect_bottom)
 
     def is_off_screen(self):
         """Check if the pipe has moved completely off the screen"""
